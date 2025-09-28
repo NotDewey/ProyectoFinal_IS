@@ -7,7 +7,13 @@
 
 import Foundation
 
-class DonorService {
+protocol DonorServiceProtocol {
+    func fetchDonors(completion: @escaping (Result<[Donor], Error>) -> Void)
+    func createDonor(donor: Donor, completion: @escaping (Result<Donor, Error>) -> Void)
+    func deleteDonor(id: UUID, completion: @escaping (Result<Bool, Error>) -> Void)
+}
+
+class DonorService: DonorServiceProtocol {
     private var donors: [Donor] = []
 
     init() {
@@ -26,10 +32,10 @@ class DonorService {
         completion(.success(donor))
     }
 
-    func deleteDonor(id: UUID, completion: @escaping (Result<Void, Error>) -> Void) {
+    func deleteDonor(id: UUID, completion: @escaping (Result<Bool, Error>) -> Void) {
         if let index = donors.firstIndex(where: { $0.id == id }) {
             donors.remove(at: index)
-            completion(.success(()))
+            completion(.success(true))
         } else {
             let error = NSError(
                 domain: "DonorService",

@@ -1,9 +1,7 @@
-//
-//  Fastfile.swift
-//  AvanceProyecto
-//
-//  Created by David Moreno on 2025-09-27.
-//
+
+#  Fastfile.swift
+#  AvanceProyecto
+#  Created by David Moreno on 2025-09-27.
 
 default_platform(:ios)
 

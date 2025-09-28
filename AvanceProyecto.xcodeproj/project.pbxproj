@@ -14,6 +14,7 @@
 		2047BF462E88F56200754280 /* AuthViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2047BF452E88F56200754280 /* AuthViewModel.swift */; };
 		2047BF482E88F58A00754280 /* DonorListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2047BF472E88F58A00754280 /* DonorListView.swift */; };
 		2047BF4A2E88F59400754280 /* DonorFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2047BF492E88F59400754280 /* DonorFormView.swift */; };
+		2047BFA12E895ED700754280 /* codecov.yml in Sources */ = {isa = PBXBuildFile; fileRef = 2047BFA02E895EC800754280 /* codecov.yml */; };
 		20FACA2E2E66B143005861ED /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20FACA2D2E66B143005861ED /* Item.swift */; };
 		20FACA312E66B173005861ED /* ItemsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20FACA302E66B173005861ED /* ItemsViewModel.swift */; };
 		20FACA332E66B18A005861ED /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20FACA322E66B18A005861ED /* RootView.swift */; };
@@ -53,6 +54,7 @@
 		2047BF582E88F73000754280 /* ios.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = ios.yml; sourceTree = "<group>"; };
 		2047BF5A2E88F9ED00754280 /* Appfile */ = {isa = PBXFileReference; lastKnownFileType = text; path = Appfile; sourceTree = "<group>"; };
 		2047BF5B2E88F9FD00754280 /* Fastfile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Fastfile.swift; sourceTree = "<group>"; };
+		2047BFA02E895EC800754280 /* codecov.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = codecov.yml; sourceTree = "<group>"; };
 		20FAC9D42E66A6EA005861ED /* AvanceProyecto.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AvanceProyecto.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		20FAC9E12E66A6ED005861ED /* AvanceProyectoTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AvanceProyectoTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		20FAC9EB2E66A6ED005861ED /* AvanceProyectoUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AvanceProyectoUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -71,11 +73,6 @@
 		2047BF4C2E88F5D300754280 /* Services */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			path = Services;
-			sourceTree = "<group>";
-		};
-		2047BF512E88F63E00754280 /* AvanceProyectoTestsEF */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			path = AvanceProyectoTestsEF;
 			sourceTree = "<group>";
 		};
 		20FAC9D62E66A6EA005861ED /* AvanceProyecto */ = {
@@ -156,15 +153,15 @@
 		20FAC9CB2E66A6EA005861ED = {
 			isa = PBXGroup;
 			children = (
+				2047BFA02E895EC800754280 /* codecov.yml */,
 				2047BF592E88F99200754280 /* fastlane */,
-				2047BF512E88F63E00754280 /* AvanceProyectoTestsEF */,
 				20FAC9D62E66A6EA005861ED /* AvanceProyecto */,
 				20FACA122E66AB69005861ED /* Common */,
 				20FACA2B2E66B128005861ED /* Domain */,
 				20FACA0F2E66AB4B005861ED /* Presentation */,
 				2047BF4C2E88F5D300754280 /* Services */,
-				2047BF562E88F67300754280 /* .github */,
 				20FAC9E42E66A6ED005861ED /* AvanceProyectoTests */,
+				2047BF562E88F67300754280 /* .github */,
 				20FAC9EE2E66A6ED005861ED /* AvanceProyectoUITests */,
 				20FAC9D52E66A6EA005861ED /* Products */,
 			);
@@ -266,7 +263,6 @@
 			);
 			fileSystemSynchronizedGroups = (
 				2047BF4C2E88F5D300754280 /* Services */,
-				2047BF512E88F63E00754280 /* AvanceProyectoTestsEF */,
 				20FAC9D62E66A6EA005861ED /* AvanceProyecto */,
 			);
 			name = AvanceProyecto;
@@ -399,6 +395,7 @@
 				20FACA392E66B1AE005861ED /* DetailView.swift in Sources */,
 				20FACA372E66B1A2005861ED /* HomeView.swift in Sources */,
 				2047BF402E88F53900754280 /* Donor.swift in Sources */,
+				2047BFA12E895ED700754280 /* codecov.yml in Sources */,
 				2047BF422E88F54400754280 /* User.swift in Sources */,
 				20FACA312E66B173005861ED /* ItemsViewModel.swift in Sources */,
 				20FACA2E2E66B143005861ED /* Item.swift in Sources */,

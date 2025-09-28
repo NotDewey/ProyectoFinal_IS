@@ -9,7 +9,7 @@ import Foundation
 
 struct Donor: Identifiable, Codable, Equatable {
     let id: UUID
-    var name: String
-    var email: String
-    var donationAmount: Double
+    let name: String
+    let email: String
+    let donationAmount: Double
 }

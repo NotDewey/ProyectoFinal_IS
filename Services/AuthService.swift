@@ -8,7 +8,9 @@
 import Foundation
 
 class AuthService {
-    private let baseURL = "https://tu-backend.com/api"   // 👉 cámbialo por tu backend real
+    private let baseURL = "https://tu-backend.com/api" // 🔹 cámbialo por tu backend real
+    private var token: String?
+    private var role: String?
 
     // MARK: - Login
     func login(email: String, password: String, completion: @escaping (Result<User, Error>) -> Void) {
@@ -17,26 +19,49 @@ class AuthService {
             return
         }
 
-        let body = try? JSONEncoder().encode(["email": email, "password": password])
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+        request.httpBody = try? JSONEncoder().encode([
+            "email": email,
+            "password": password
+        ])
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
 
-        APIClient.shared.request(
-            url: url,
-            method: "POST",
-            body: body
-        ) { (result: Result<User, Error>) in
-            switch result {
-            case .success(let user):
-                APIClient.shared.setToken(user.token) // Guardar token globalmente
+        URLSession.shared.dataTask(with: request) { data, _, error in
+            if let error = error {
+                completion(.failure(error))
+                return
+            }
+
+            guard let data = data else {
+                completion(.failure(NSError(domain: "No data", code: 0)))
+                return
+            }
+
+            do {
+                let user = try JSONDecoder().decode(User.self, from: data)
+                self.token = user.token
+                self.role = user.role
                 completion(.success(user))
-            case .failure(let error):
+            } catch {
                 completion(.failure(error))
             }
-        }
+        }.resume()
     }
 
-    // MARK: - Obtener Token
-    func getToken() -> String? {
-        return APIClient.shared.token
+    // MARK: - Obtener token actual
+    func currentToken() -> String? {
+        return token
+    }
+
+    // MARK: - Obtener rol actual
+    func currentRole() -> String? {
+        return role
+    }
+
+    // MARK: - Logout
+    func logout() {
+        token = nil
+        role = nil
     }
 }
-

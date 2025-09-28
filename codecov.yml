@@ -1,7 +1,10 @@
-//
-//  codecov.yml.swift
-//  AvanceProyecto
-//
-//  Created by David Moreno on 2025-09-28.
-//
-
+coverage:
+  status:
+    project:
+      default:
+        target: 80%      # ✅ mínimo 80% de cobertura global
+        threshold: 1%    # tolerancia, evita falsos negativos
+    patch:
+      default:
+        target: 80%      # ✅ mínimo 80% en el código nuevo de cada PR
+        threshold: 1%

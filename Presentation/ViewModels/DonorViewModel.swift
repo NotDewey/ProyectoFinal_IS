@@ -9,10 +9,11 @@ import Foundation
 
 class DonorViewModel: ObservableObject {
     @Published var donors: [Donor] = []
-    private let donorService: DonorService
+    private let donorService: DonorServiceProtocol   // ✅ ahora usa el protocolo
 
-    init() {
-        self.donorService = DonorService()
+    // ✅ Inyección de dependencias con valor por defecto
+    init(donorService: DonorServiceProtocol = DonorService()) {
+        self.donorService = donorService
         fetchDonors()
     }
 
