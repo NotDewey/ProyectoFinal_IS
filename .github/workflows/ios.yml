@@ -1,4 +1,4 @@
-name: iOS CI
+name: ios ci
 
 on:
   push:
@@ -11,43 +11,49 @@ jobs:
     runs-on: macos-latest
 
     steps:
-      # 1. Descargar repo
-      - name: Checkout repository
-        uses: actions/checkout@v4
+    # 1. Descargar repo
+    - name: Checkout repository
+      uses: actions/checkout@v4
 
-      # 2. Configurar Xcode
-      - name: Set up Xcode
-        run: sudo xcode-select -s /Applications/Xcode.app
+    # 2. Configurar Xcode
+    - name: Set up Xcode
+      run: sudo xcode-select -s /Applications/Xcode.app
 
-      # 3. Resolver dependencias (Swift Packages)
-      - name: Resolve Swift Packages
-        run: |
-          xcodebuild -resolvePackageDependencies \
-            -project AvanceProyecto.xcodeproj
+    # 3. Resolver dependencias
+    - name: Resolve Swift Packages
+      run: |
+        xcodebuild -resolvePackageDependencies \
+          -project AvanceProyecto.xcodeproj
 
-      # 4. Compilar y correr tests en simulador con cobertura
-      - name: Build and Test
-        run: |
-          xcodebuild test \
-            -scheme AvanceProyecto \
-            -project AvanceProyecto.xcodeproj \
-            -sdk iphonesimulator \
-            -destination 'platform=iOS Simulator,name=iPhone 16,OS=18.5' \
-            ONLY_ACTIVE_ARCH=NO \
-            ARCHS="arm64 x86_64" \
-            -enableCodeCoverage YES
+    # 4. Compilar y correr tests con cobertura habilitada
+    - name: Build and Test
+      run: |
+        xcodebuild test \
+          -scheme AvanceProyecto \
+          -project AvanceProyecto.xcodeproj \
+          -sdk iphonesimulator \
+          -destination 'platform=iOS Simulator,name=iPhone 16,OS=18.5' \
+          -enableCodeCoverage YES
 
-      # 5. Guardar resultados de tests (logs, cobertura, etc.)
-      - name: Upload Test Results
-        uses: actions/upload-artifact@v4
-        with:
-          name: TestResults
-          path: ~/Library/Developer/Xcode/DerivedData/**/Logs/Test/*.xcresult
+    # 5. Convertir cobertura a JSON
+    - name: Convert coverage to JSON
+      run: |
+        xcrun xccov view \
+          --report \
+          --json ~/Library/Developer/Xcode/DerivedData/AvanceProyecto-*/Logs/Test/*.xcresult > coverage.json
 
-      # 6. Subir cobertura a Codecov
-      - name: Upload coverage reports to Codecov
-        uses: codecov/codecov-action@v5
-        with:
-          token: ${{ secrets.CODECOV_TOKEN }}
-          files: ~/Library/Developer/Xcode/DerivedData/**/Logs/Test/*.xcresult
-          fail_ci_if_error: true
+    # 6. Subir artefactos (opcional, para debug)
+    - name: Upload Test Results
+      uses: actions/upload-artifact@v4
+      with:
+        name: TestResults
+        path: ~/Library/Developer/Xcode/DerivedData/AvanceProyecto-*/Logs/Test/*.xcresult
+
+    # 7. Subir cobertura a Codecov
+    - name: Upload coverage to Codecov
+      uses: codecov/codecov-action@v5
+      with:
+        token: ${{ secrets.CODECOV_TOKEN }}
+        files: coverage.json
+        fail_ci_if_error: true
+
