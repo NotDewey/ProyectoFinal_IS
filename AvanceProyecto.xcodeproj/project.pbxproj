@@ -14,10 +14,8 @@
 		2047BF462E88F56200754280 /* AuthViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2047BF452E88F56200754280 /* AuthViewModel.swift */; };
 		2047BF482E88F58A00754280 /* DonorListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2047BF472E88F58A00754280 /* DonorListView.swift */; };
 		2047BF4A2E88F59400754280 /* DonorFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2047BF492E88F59400754280 /* DonorFormView.swift */; };
-		2047BFA12E895ED700754280 /* codecov.yml in Sources */ = {isa = PBXBuildFile; fileRef = 2047BFA02E895EC800754280 /* codecov.yml */; };
 		2047BFA72E8997D800754280 /* String+Base64URL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2047BFA62E8997D800754280 /* String+Base64URL.swift */; };
 		2047BFAA2E89980900754280 /* JWTPayload.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2047BFA92E89980900754280 /* JWTPayload.swift */; };
-		2047BFAC2E89E35700754280 /* JWTUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2047BFAB2E89E35700754280 /* JWTUtils.swift */; };
 		20FACA2E2E66B143005861ED /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20FACA2D2E66B143005861ED /* Item.swift */; };
 		20FACA312E66B173005861ED /* ItemsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20FACA302E66B173005861ED /* ItemsViewModel.swift */; };
 		20FACA332E66B18A005861ED /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20FACA322E66B18A005861ED /* RootView.swift */; };
@@ -60,7 +58,6 @@
 		2047BFA02E895EC800754280 /* codecov.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = codecov.yml; sourceTree = "<group>"; };
 		2047BFA62E8997D800754280 /* String+Base64URL.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Base64URL.swift"; sourceTree = "<group>"; };
 		2047BFA92E89980900754280 /* JWTPayload.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JWTPayload.swift; sourceTree = "<group>"; };
-		2047BFAB2E89E35700754280 /* JWTUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JWTUtils.swift; sourceTree = "<group>"; };
 		20FAC9D42E66A6EA005861ED /* AvanceProyecto.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AvanceProyecto.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		20FAC9E12E66A6ED005861ED /* AvanceProyectoTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AvanceProyectoTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		20FAC9EB2E66A6ED005861ED /* AvanceProyectoUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AvanceProyectoUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -250,7 +247,6 @@
 				2047BF3F2E88F53900754280 /* Donor.swift */,
 				2047BF412E88F54400754280 /* User.swift */,
 				2047BFA92E89980900754280 /* JWTPayload.swift */,
-				2047BFAB2E89E35700754280 /* JWTUtils.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -404,10 +400,8 @@
 				20FACA392E66B1AE005861ED /* DetailView.swift in Sources */,
 				20FACA372E66B1A2005861ED /* HomeView.swift in Sources */,
 				2047BF402E88F53900754280 /* Donor.swift in Sources */,
-				2047BFA12E895ED700754280 /* codecov.yml in Sources */,
 				2047BF422E88F54400754280 /* User.swift in Sources */,
 				20FACA312E66B173005861ED /* ItemsViewModel.swift in Sources */,
-				2047BFAC2E89E35700754280 /* JWTUtils.swift in Sources */,
 				20FACA2E2E66B143005861ED /* Item.swift in Sources */,
 				2047BF4A2E88F59400754280 /* DonorFormView.swift in Sources */,
 				20FACA3D2E66B20C005861ED /* Theme.swift in Sources */,
