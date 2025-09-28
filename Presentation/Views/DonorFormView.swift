@@ -8,27 +8,45 @@
 import SwiftUI
 
 struct DonorFormView: View {
+    @Environment(\.presentationMode) var presentationMode
     @ObservedObject var viewModel: DonorViewModel
-    @State private var name = ""
-    @State private var email = ""
-    @State private var amount = ""
+
+    @State private var name: String = ""
+    @State private var email: String = ""
+    @State private var donationAmount: String = ""
 
     var body: some View {
-        Form {
-            TextField("Nombre", text: $name)
-            TextField("Correo", text: $email)
-            TextField("Donación", text: $amount)
-                .keyboardType(.decimalPad)
+        NavigationView {
+            Form {
+                Section(header: Text("Información del Donador")) {
+                    TextField("Nombre", text: $name)
+                    TextField("Correo", text: $email)
+                        .keyboardType(.emailAddress)
+                    TextField("Monto de donación", text: $donationAmount)
+                        .keyboardType(.decimalPad)
+                }
 
-            Button("Agregar Donante") {
-                if let donation = Double(amount) {
-                    viewModel.addDonor(name: name, email: email, amount: donation)
-                    name = ""
-                    email = ""
-                    amount = ""
+                Button(action: saveDonor) {
+                    Text("Guardar")
+                        .frame(maxWidth: .infinity)
                 }
             }
+            .navigationTitle("Nuevo Donador")
+            .navigationBarItems(trailing: Button("Cerrar") {
+                presentationMode.wrappedValue.dismiss()
+            })
         }
-        .navigationTitle("Nuevo Donante")
+    }
+
+    private func saveDonor() {
+        guard let amount = Double(donationAmount) else { return }
+        let newDonor = Donor(
+            id: UUID(),
+            name: name,
+            email: email,
+            donationAmount: amount
+        )
+        viewModel.addDonor(newDonor)
+        presentationMode.wrappedValue.dismiss()
     }
 }
