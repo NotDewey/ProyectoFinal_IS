@@ -1,0 +1,39 @@
+#
+//  ios.yml
+//  AvanceProyecto
+//
+//  Created by David Moreno on 2025-09-27.
+//
+
+name: iOS CI
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build:
+    runs-on: macos-latest
+
+    steps:
+    # 1. Descargar tu repo
+    - name: Checkout repo
+      uses: actions/checkout@v3
+
+    # 2. Instalar Xcode
+    - name: Set up Xcode
+      run: sudo xcode-select -s /Applications/Xcode.app
+
+    # 3. Compilar el proyecto
+    - name: Build
+      run: xcodebuild -scheme AvanceProyecto -sdk iphonesimulator -destination 'platform=iOS Simulator,name=iPhone 14' build
+
+    # 4. Ejecutar pruebas unitarias con cobertura
+    - name: Run tests with coverage
+      run: xcodebuild test -scheme AvanceProyecto -sdk iphonesimulator -destination 'platform=iOS Simulator,name=iPhone 14' -enableCodeCoverage YES
+
+    # 5. Ejecutar lane de Fastlane (solo CI, sin deploy)
+    - name: Run Fastlane CI lane
+      run: fastlane ios ci

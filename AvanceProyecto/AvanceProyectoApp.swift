@@ -9,9 +9,14 @@ import SwiftUI
 
 @main
 struct AvanceProyectoApp: App {
+    @StateObject private var itemsVM = ItemsViewModel()
+    @State private var isLoggedIn = false
+    
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            RootView(isLoggedIn: $isLoggedIn)
+                .environmentObject(itemsVM)
         }
     }
 }
+
