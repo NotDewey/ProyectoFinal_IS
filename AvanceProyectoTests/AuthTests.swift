@@ -8,7 +8,7 @@
 import XCTest
 @testable import AvanceProyecto
 
-/// Tests para el sistema de autenticación usando un Mock
+/// Tests para el sistema de autenticación usando MockAuthService
 final class AuthTests: XCTestCase {
     var authService: MockAuthService!
 
@@ -70,5 +70,29 @@ final class AuthTests: XCTestCase {
         }
 
         waitForExpectations(timeout: 2)
+    }
+
+    // MARK: - Decodificar rol desde un JWT mockeado
+    func testDecodeRoleFromMockJWT() {
+        let fakeJWT = authService.currentToken() ?? authService.loginAndReturnToken()
+
+        XCTAssertNotNil(fakeJWT, "El mock debe generar un JWT falso")
+        XCTAssertEqual(authService.currentRole(), "admin", "El rol decodificado debería ser admin")
+    }
+}
+
+// MARK: - Helper para testDecodeRoleFromMockJWT
+private extension MockAuthService {
+    func loginAndReturnToken() -> String? {
+        var token: String?
+        let expectation = XCTestExpectation(description: "Login for token")
+
+        self.login(email: "admin@mail.com", password: "1234") { _ in
+            token = self.currentToken()
+            expectation.fulfill()
+        }
+
+        XCTWaiter().wait(for: [expectation], timeout: 1.0)
+        return token
     }
 }
