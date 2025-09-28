@@ -8,38 +8,35 @@
 import Foundation
 
 class DonorService {
-    private let baseURL = "https://tu-backend.com/api/donors"   // 👉 cámbialo por tu backend real
+    private var donors: [Donor] = []
 
-    // Crear donante (requiere rol admin normalmente)
-    func createDonor(donor: Donor, completion: @escaping (Result<Donor, Error>) -> Void) {
-        guard let url = URL(string: baseURL) else {
-            completion(.failure(NSError(domain: "Invalid URL", code: 0)))
-            return
-        }
-
-        let body = try? JSONEncoder().encode(donor)
-
-        APIClient.shared.request(
-            url: url,
-            method: "POST",
-            body: body
-        ) { (result: Result<Donor, Error>) in
-            completion(result)
-        }
+    init() {
+        self.donors = [
+            Donor(id: UUID(), name: "Mateo", email: "mateo@mail.com", donationAmount: 200.0),
+            Donor(id: UUID(), name: "Ana", email: "ana@mail.com", donationAmount: 150.0)
+        ]
     }
 
-    // Obtener lista de donantes
-    func getDonors(completion: @escaping (Result<[Donor], Error>) -> Void) {
-        guard let url = URL(string: baseURL) else {
-            completion(.failure(NSError(domain: "Invalid URL", code: 0)))
-            return
-        }
+    func fetchDonors(completion: @escaping (Result<[Donor], Error>) -> Void) {
+        completion(.success(donors))
+    }
 
-        APIClient.shared.request(
-            url: url,
-            method: "GET"
-        ) { (result: Result<[Donor], Error>) in
-            completion(result)
+    func createDonor(donor: Donor, completion: @escaping (Result<Donor, Error>) -> Void) {
+        donors.append(donor)
+        completion(.success(donor))
+    }
+
+    func deleteDonor(id: UUID, completion: @escaping (Result<Void, Error>) -> Void) {
+        if let index = donors.firstIndex(where: { $0.id == id }) {
+            donors.remove(at: index)
+            completion(.success(()))
+        } else {
+            let error = NSError(
+                domain: "DonorService",
+                code: 404,
+                userInfo: [NSLocalizedDescriptionKey: "Donor not found"]
+            )
+            completion(.failure(error))
         }
     }
 }
