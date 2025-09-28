@@ -9,21 +9,50 @@ import Foundation
 
 class DonorViewModel: ObservableObject {
     @Published var donors: [Donor] = []
-    private var donorService: DonorService
+    private let donorService: DonorService
 
-    init(auth: AuthService) {
-        self.donorService = DonorService(auth: auth)
+    init() {
+        self.donorService = DonorService()
+        fetchDonors()
     }
 
-    func addDonor(name: String, email: String, amount: Double) {
-        let donor = Donor(id: UUID(), name: name, email: email, donationAmount: amount)
+    func fetchDonors() {
+        donorService.fetchDonors { result in
+            switch result {
+            case .success(let donors):
+                DispatchQueue.main.async {
+                    self.donors = donors
+                }
+            case .failure(let error):
+                print("❌ Error fetching donors: \(error.localizedDescription)")
+            }
+        }
+    }
+
+    func addDonor(_ donor: Donor) {
         donorService.createDonor(donor: donor) { result in
-            DispatchQueue.main.async {
-                switch result {
-                case .success(let newDonor):
+            switch result {
+            case .success(let newDonor):
+                DispatchQueue.main.async {
                     self.donors.append(newDonor)
+                }
+            case .failure(let error):
+                print("❌ Error adding donor: \(error.localizedDescription)")
+            }
+        }
+    }
+
+    func removeDonor(at offsets: IndexSet) {
+        for index in offsets {
+            let donor = donors[index]
+            donorService.deleteDonor(id: donor.id) { result in
+                switch result {
+                case .success:
+                    DispatchQueue.main.async {
+                        self.donors.remove(atOffsets: offsets)
+                    }
                 case .failure(let error):
-                    print("Error adding donor: \(error.localizedDescription)")
+                    print("❌ Error deleting donor: \(error.localizedDescription)")
                 }
             }
         }
